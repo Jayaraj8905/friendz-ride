@@ -9,6 +9,7 @@
     "js": "react-native start -- --reset-cache"
   },
   "dependencies": {
+    "native-base": "^2.12.1",
     "react": "16.8.3",
     "react-native": "0.59.3"
   },
