@@ -6,7 +6,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "android": "react-native run-android",
-    "js": "react-native start -- --reset-cache"
+    "js": "react-native start -- --reset-cache",
+    "link-icons": "react-native link react-native-vector-icons",
+    "link": "react-native link"
   },
   "dependencies": {
     "native-base": "^2.12.1",
