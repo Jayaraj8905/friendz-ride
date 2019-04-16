@@ -7,8 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Card, CardItem } from 'native-base';
+import {Platform, StyleSheet, View, Image} from 'react-native';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Card, CardItem, Thumbnail,  } from 'native-base';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,16 +20,16 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
+    const image = require('./images/logo.png');
+    // const uri = 'https://www.bensprostate.com/wp-content/uploads/2017/02/male-female-symbol.png';
     return (
       <Container>
-        <Header style={styles.header}>
-          <Left>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Left>
+        <Header androidStatusBarColor="#835FFD" style={styles.header}>
+          <Left style={styles.headerLeft}/>
           <Body>
-            <Title>Friendz Ride</Title>
+            <View style={styles.headerTitle}>
+              <Thumbnail style={styles.logo} square small source={image} />
+            </View>
           </Body>
           <Right />
         </Header>
@@ -68,6 +68,18 @@ const styles = StyleSheet.create({
   header: {
     height: 75,
     backgroundColor: '#835FFD',
+  },
+  headerLeft: {
+    flex: 1
+  },
+  headerTitle: {
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center'
+  },
+  logo: {
+    width: 50,
+    height: 44
   },
   headerextend: {
     height: 20,
