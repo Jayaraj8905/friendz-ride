@@ -20,7 +20,8 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    const image = require('./images/logo.png');
+    const logo = require('./images/logo.png');
+    const model1 = require('./images/model/01.jpg');
     // const uri = 'https://www.bensprostate.com/wp-content/uploads/2017/02/male-female-symbol.png';
     return (
       <Container>
@@ -28,7 +29,7 @@ export default class App extends Component<Props> {
           <Left style={styles.headerLeft}/>
           <Body>
             <View style={styles.headerTitle}>
-              <Thumbnail style={styles.logo} square small source={image} />
+              <Thumbnail style={styles.logo} square small source={logo} />
             </View>
           </Body>
           <Right />
@@ -37,20 +38,20 @@ export default class App extends Component<Props> {
           <View style={styles.headerextend}/>
           <View style={styles.slope}/>
           <Card style={styles.card}>
-            <CardItem>
-              <Body>
-                <Text>
-                  Your text here
-                  Your text here
-                  Your text here
-                  Your text here
-                  Your text here
-                  Your text here
-                  Your text here
-                </Text>
-              </Body>
+            <CardItem cardBody>
+              <Image source={model1} style={{height: 400, width: null, flex: 1}}/>
+            </CardItem>
+            <CardItem cardBody style={styles.info}>
+              <Text note>Friendzride - For Nicer and Naughtier</Text>
             </CardItem>
           </Card>
+          <View style={styles.loginsection}>
+            {/* <Text></Text> */}
+            <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
+            <Button full rounded style={styles.loginbutton}>
+              <Text>LOGIN IN WITH FACEBOOK</Text>
+            </Button>
+          </View>
         </Content>
         {/* <Footer>
           <FooterTab>
@@ -99,9 +100,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#EBF0F4',
   },
   card: {
-    marginTop: -50,
+    marginTop: -40,
     marginBottom: 5,
     marginLeft: 40,
     marginRight: 40,
+    borderRadius: 20,
+    overflow: 'hidden'
+  },
+  info: {
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    justifyContent: 'center'
+  },
+  loginsection: {
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingTop: 25,
+    paddingBottom: 25
+  },
+  loginTerms: {
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  loginbutton: {
+    paddingTop: 25,
+    paddingBottom: 25,
+    backgroundColor: '#7F61FD'
   }
 });
