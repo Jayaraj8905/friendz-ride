@@ -48,7 +48,7 @@ export default class App extends Component<Props> {
           <View style={styles.loginsection}>
             {/* <Text></Text> */}
             <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
-            <Button full rounded style={styles.loginbutton}>
+            <Button full style={styles.loginbutton}>
               <Text>LOGIN IN WITH FACEBOOK</Text>
             </Button>
           </View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 40,
     marginRight: 40,
-    borderRadius: 20,
+    borderRadius: 12,
     overflow: 'hidden'
   },
   info: {
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   loginbutton: {
     paddingTop: 25,
     paddingBottom: 25,
-    backgroundColor: '#7F61FD'
+    backgroundColor: '#7F61FD',
+    borderRadius: 12
   }
 });
