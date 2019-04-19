@@ -25,7 +25,7 @@ export default class App extends Component<Props> {
     // const uri = 'https://www.bensprostate.com/wp-content/uploads/2017/02/male-female-symbol.png';
     return (
       <Container>
-        <Header androidStatusBarColor="#835FFD" style={styles.header}>
+        <Header androidStatusBarColor="#bf42f4" style={styles.header}>
           <Left style={styles.headerLeft}/>
           <Body>
             <View style={styles.headerTitle}>
@@ -48,8 +48,9 @@ export default class App extends Component<Props> {
           <View style={styles.loginsection}>
             {/* <Text></Text> */}
             <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
-            <Button full style={styles.loginbutton}>
-              <Text>LOGIN IN WITH FACEBOOK</Text>
+            <Button full iconLeft style={styles.loginbutton}>
+              <Icon type="FontAwesome" name='facebook-f' />
+              <Text>LOGIN</Text>
             </Button>
           </View>
         </Content>
@@ -68,7 +69,7 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   header: {
     height: 75,
-    backgroundColor: '#835FFD',
+    backgroundColor: '#bf42f4',
   },
   headerLeft: {
     flex: 1
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   },
   headerextend: {
     height: 20,
-    backgroundColor: '#835FFD',
+    backgroundColor: '#bf42f4',
   },
   slope: {
     overflow: 'hidden',
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 125,
     borderTopWidth: 20,
     borderLeftColor: 'transparent',
-    borderTopColor: '#835FFD',
+    borderTopColor: '#bf42f4',
     borderRightWidth: 125,
     borderRightColor: 'transparent'
   },
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   loginbutton: {
     paddingTop: 25,
     paddingBottom: 25,
-    backgroundColor: '#7F61FD',
+    backgroundColor: '#bf42f4',
     borderRadius: 12
   }
 });
