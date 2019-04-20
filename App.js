@@ -7,21 +7,66 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, View, Image} from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Card, CardItem, Thumbnail,  } from 'native-base';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {StyleSheet, View, Image, Dimensions} from 'react-native';
+import { Container, Header, Content, Button, Left, Right, Body, Icon, Text, Card, CardItem, Thumbnail,  } from 'native-base';
+import Carousel from 'react-native-snap-carousel';
 
 type Props = {};
+
+const ENTRIES1 = [
+  {
+      info: 'Friendzride - For Nicer and Naughtier',
+      image: require('./images/model/01.jpg')
+  },
+  {
+      info: 'Earlier this morning, NYC',
+      image: require('./images/model/02.jpg')
+  },
+  {
+      info: 'White Pocket Sunset',
+      image: require('./images/model/03.jpg')
+  },
+  {
+      info: 'Acrocorinth, Greece',
+      image: require('./images/model/04.jpg')
+  },
+  {
+      info: 'The lone tree, majestic landscape of New Zealand',
+      image: require('./images/model/05.jpg')
+  },
+  {
+      info: 'Middle Earth, Germany',
+      image: require('./images/model/06.jpg')
+  }
+];
+
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+function wp (percentage) {
+  const value = (percentage * viewportWidth) / 100;
+  return Math.round(value);
+}
+
+const sliderWidth = viewportWidth;
+const slideWidth = wp(75);
+const itemHorizontalMargin = wp(2);
+const itemWidth = slideWidth + itemHorizontalMargin * 2;
 export default class App extends Component<Props> {
+  
+  _renderItem ({item, index}) {
+    return (
+          <Card style={styles.card}>
+            <CardItem cardBody>
+              <Image source={item.image} style={{height: 400, width: null, flex: 1}}/>
+            </CardItem>
+            <CardItem cardBody style={styles.info}>
+              <Text note>{item.info}</Text>
+            </CardItem>
+          </Card>
+    );
+  }
   render() {
     const logo = require('./images/logo.png');
-    const model1 = require('./images/model/01.jpg');
+    
     // const uri = 'https://www.bensprostate.com/wp-content/uploads/2017/02/male-female-symbol.png';
     return (
       <Container>
@@ -37,14 +82,30 @@ export default class App extends Component<Props> {
         <Content style={styles.content}>
           <View style={styles.headerextend}/>
           <View style={styles.slope}/>
-          <Card style={styles.card}>
+          {/* <Card style={styles.card}>
             <CardItem cardBody>
               <Image source={model1} style={{height: 400, width: null, flex: 1}}/>
             </CardItem>
             <CardItem cardBody style={styles.info}>
               <Text note>Friendzride - For Nicer and Naughtier</Text>
             </CardItem>
-          </Card>
+          </Card> */}
+          <View style={styles.carouselHold}>
+            <Carousel
+                // style={styles.card}
+                layout={'stack'} layoutCardOffset={18}
+                ref={(c) => { this._carousel = c; }}
+                data={ENTRIES1}
+                renderItem={this._renderItem}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+                loop={true}
+                autoplay={true}
+                autoplayDelay={500}
+                autoplayInterval={3000}
+              />
+            </View>
+          {/* <Carousel layout={'stack'} layoutCardOffset={`18`} /> */}
           <View style={styles.loginsection}>
             {/* <Text></Text> */}
             <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
@@ -100,11 +161,11 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: '#EBF0F4',
   },
-  card: {
+  carouselHold: {
     marginTop: -40,
     marginBottom: 5,
-    marginLeft: 40,
-    marginRight: 40,
+  },
+  card: {
     borderRadius: 12,
     overflow: 'hidden'
   },
