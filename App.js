@@ -18,13 +18,11 @@ export default class App extends Component<Props> {
     return (
       <Container>
         <Header androidStatusBarColor="#bf42f4" style={styles.header}>
-          <Left style={styles.headerLeft}/>
           <Body>
             <View style={styles.headerTitle}>
               <Thumbnail style={styles.logo} square small source={logo} />
             </View>
           </Body>
-          <Right />
         </Header>
         <Content style={styles.content}>
           <View style={styles.headerextend}/>
@@ -58,7 +56,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 50,
-    height: 44
+    height: 50
   },
   headerextend: {
     height: 20,
