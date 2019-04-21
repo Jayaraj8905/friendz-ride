@@ -7,12 +7,32 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { Container, Header, Content, Button, Left, Right, Body, Icon, Text, Thumbnail } from 'native-base';
 import AppSlider from './src/components/slider.js';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 type Props = {};
 
 export default class App extends Component<Props> {
+
+  _fbLogin() {
+    LoginManager.logInWithReadPermissions(["public_profile", "email", "user_birthday", "user_friends"]).then(
+      function(result) {
+        if (result.isCancelled) {
+          console.log("Login cancelled");
+        } else {
+          console.log(result);
+          console.log(
+            "Login success with permissions: " +
+              result.grantedPermissions.toString()
+          );
+        }
+      },
+      function(error) {
+        console.log("Login fail with error: " + error);
+      }
+    );
+  }
   render() {
     const logo = require('./src/assets/images/logo.png');
     return (
@@ -30,11 +50,34 @@ export default class App extends Component<Props> {
           <AppSlider />
           <View style={styles.loginsection}>
             <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
-            <Button full iconLeft style={styles.loginbutton}>
+            <Button full iconLeft style={styles.loginbutton} onPress={this._fbLogin}>
               <Icon type="FontAwesome" name='facebook-f' />
               <Text>LOGIN</Text>
             </Button>
           </View>
+          {/* <View>
+            <LoginButton
+              onLoginFinished={
+                (error, result) => {
+                  if (error) {
+                    Alert.alert('Login has error');
+                    console.log(result);
+                    console.log("login has error: " + result.error);
+                  } else if (result.isCancelled) {
+                    Alert.alert('Login has cancelled');
+                    console.log("login is cancelled.");
+                  } else {
+                    AccessToken.getCurrentAccessToken().then(
+                      (data) => {
+                        Alert.alert('Login Success');
+                        console.log(data.accessToken.toString())
+                      }
+                    )
+                  }
+                }
+              }
+              onLogoutFinished={() => console.log("logout.")}/>
+          </View> */}
         </Content>
       </Container>
     );
