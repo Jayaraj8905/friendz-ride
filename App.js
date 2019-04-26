@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
 import { Container, Header, Content, Button, Left, Right, Body, Icon, Text, Thumbnail } from 'native-base';
 import AppSlider from './src/components/slider.js';
-import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
+import { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 type Props = {};
 
 export default class App extends Component<Props> {
@@ -20,15 +20,32 @@ export default class App extends Component<Props> {
       function(result) {
         if (result.isCancelled) {
           console.log("Login cancelled");
+          Alert.alert('Login Cancelled');
         } else {
           console.log(result);
           console.log(
             "Login success with permissions: " +
               result.grantedPermissions.toString()
           );
+
+          let infoRequest = new GraphRequest('/me', {
+            httpMethod: 'GET',
+            version: 'v2.5',
+            parameters: {
+                'fields': {
+                    'string' : 'email,name,friends,birthday'
+                }
+            }
+          }, (err, res) => {
+            Alert.alert(`Logged in from facebook as ${res.name}`);
+            console.log(err, res);
+          });
+
+          new GraphRequestManager().addRequest(infoRequest).start();
         }
       },
       function(error) {
+        Alert.alert('Login Failed');
         console.log("Login fail with error: " + error);
       }
     );
