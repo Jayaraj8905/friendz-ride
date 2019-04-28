@@ -8,7 +8,9 @@
 
 import React, {Component} from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
-import { Container, Header, Content, Button, Left, Right, Body, Icon, Text, Thumbnail } from 'native-base';
+import { StyleProvider, Container, Header, Content, Button, Left, Right, Body, Icon, Text, Thumbnail } from 'native-base';
+import getTheme from './native-base-theme/components';
+import platform from './native-base-theme/variables/platform';
 import AppSlider from './src/components/slider.js';
 import { LoginButton, AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 type Props = {};
@@ -53,50 +55,52 @@ export default class App extends Component<Props> {
   render() {
     const logo = require('./src/assets/images/logo.png');
     return (
-      <Container>
-        <Header androidStatusBarColor="#bf42f4" style={styles.header}>
-          <Body>
-            <View style={styles.headerTitle}>
-              <Thumbnail style={styles.logo} square small source={logo} />
+      <StyleProvider style={getTheme(platform)}>
+        <Container>
+          <Header style={styles.header}>
+            <Body>
+              <View style={styles.headerTitle}>
+                <Thumbnail style={styles.logo} square small source={logo} />
+              </View>
+            </Body>
+          </Header>
+          <Content style={styles.content}>
+            <View style={styles.headerextend}/>
+            <View style={styles.slope}/>
+            <AppSlider />
+            <View style={styles.loginsection}>
+              <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
+              <Button full iconLeft style={styles.loginbutton} onPress={this._fbLogin}>
+                <Icon type="FontAwesome" name='facebook-f' />
+                <Text>LOGIN</Text>
+              </Button>
             </View>
-          </Body>
-        </Header>
-        <Content style={styles.content}>
-          <View style={styles.headerextend}/>
-          <View style={styles.slope}/>
-          <AppSlider />
-          <View style={styles.loginsection}>
-            <Text note style={styles.loginTerms}>By tapping Log in, you agree with our Terms of Service and Privacy Policy</Text>
-            <Button full iconLeft style={styles.loginbutton} onPress={this._fbLogin}>
-              <Icon type="FontAwesome" name='facebook-f' />
-              <Text>LOGIN</Text>
-            </Button>
-          </View>
-          {/* <View>
-            <LoginButton
-              onLoginFinished={
-                (error, result) => {
-                  if (error) {
-                    Alert.alert('Login has error');
-                    console.log(result);
-                    console.log("login has error: " + result.error);
-                  } else if (result.isCancelled) {
-                    Alert.alert('Login has cancelled');
-                    console.log("login is cancelled.");
-                  } else {
-                    AccessToken.getCurrentAccessToken().then(
-                      (data) => {
-                        Alert.alert('Login Success');
-                        console.log(data.accessToken.toString())
-                      }
-                    )
+            {/* <View>
+              <LoginButton
+                onLoginFinished={
+                  (error, result) => {
+                    if (error) {
+                      Alert.alert('Login has error');
+                      console.log(result);
+                      console.log("login has error: " + result.error);
+                    } else if (result.isCancelled) {
+                      Alert.alert('Login has cancelled');
+                      console.log("login is cancelled.");
+                    } else {
+                      AccessToken.getCurrentAccessToken().then(
+                        (data) => {
+                          Alert.alert('Login Success');
+                          console.log(data.accessToken.toString())
+                        }
+                      )
+                    }
                   }
                 }
-              }
-              onLogoutFinished={() => console.log("logout.")}/>
-          </View> */}
-        </Content>
-      </Container>
+                onLogoutFinished={() => console.log("logout.")}/>
+            </View> */}
+          </Content>
+        </Container>
+      </StyleProvider>
     );
   }
 }
@@ -104,7 +108,6 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   header: {
     height: 75,
-    backgroundColor: '#bf42f4',
   },
   headerLeft: {
     flex: 1
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
   },
   headerextend: {
     height: 20,
-    backgroundColor: '#bf42f4',
+    backgroundColor: platform.toolbarDefaultBg,
   },
   slope: {
     overflow: 'hidden',
@@ -128,12 +131,12 @@ const styles = StyleSheet.create({
     borderLeftWidth: 125,
     borderTopWidth: 20,
     borderLeftColor: 'transparent',
-    borderTopColor: '#bf42f4',
+    borderTopColor: platform.toolbarDefaultBg,
     borderRightWidth: 125,
     borderRightColor: 'transparent'
   },
   content: {
-    backgroundColor: '#EBF0F4',
+    // backgroundColor: '#EBF0F4',
   },
   loginsection: {
     paddingLeft: 40,
@@ -148,7 +151,6 @@ const styles = StyleSheet.create({
   loginbutton: {
     paddingTop: 25,
     paddingBottom: 25,
-    backgroundColor: '#bf42f4',
     borderRadius: 12
   }
 });
